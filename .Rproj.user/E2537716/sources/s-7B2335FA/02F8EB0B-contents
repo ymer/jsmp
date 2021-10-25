@@ -1,0 +1,200 @@
+--- 
+title: "Howdy - Call analysis"
+author: "JP Insights"
+date: "`r Sys.Date()`"
+site: "bookdown::bookdown_site"
+output: 
+    bookdown::gitbook:
+        number_sections: false
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+```{r, include=FALSE, echo=FALSE}
+#bookdown::render_book("index.rmd", "bookdown::gitbook")
+knitr::opts_chunk$set(
+  echo = F, message = F, warning = F,
+  fig.width = 5, fig.height = 4,
+  fig.path = "figures/"
+  )
+
+Sys.setlocale("LC_TIME", "English")
+```
+
+
+```{r}
+library(jsmp)
+library(infer)
+library(pander)
+library(ggalluvial)
+set.seed(1)
+
+h1 <- "#00aae3"
+h2 <- "#0096FF"
+
+c1 <- "#008CD7"
+c2 <- "#98d0ef"
+c3 <- "#9b2373"
+c4 <- "#e6b3d5"
+
+
+dd <- function(df){
+    gt(df) %>% 
+    tab_options(
+         #data_row.padding = px(0),
+         table.align = "left"
+         #table.margin.left = px(0),
+         #table.border.top.style = "hidden",
+         #table.border.bottom.style = "hidden"
+         ) %>%
+    tab_style(
+        style = "padding-right:80px",
+        locations = cells_column_labels()
+        ) %>%
+    cols_align(align = "left")
+}
+
+
+load("prep/howdy2410.rda")
+
+question_key <- tribble(
+    ~question, ~q, ~q_int,
+    "I felt understood by the counsellor", "understood","understood_int",
+    "The advice I have received was useful to me", "useful","useful_int",
+    "I had a need to talk to a counsellor", "need", "need_int")
+
+survey_wide <- survey %>% 
+    left_join(question_key %>% rename(text = question), by = "text") %>% 
+    drop_na(q) %>% 
+    select(-int_answer, -text_answer, -text, -q_int) %>% 
+    pivot_wider(names_from = q, values_from = text1)
+
+case_calls <- case %>% 
+    rename(case_id = id, answer_id = answer_triggered_id) %>% 
+    left_join(answers %>% select(answer_id = id, total_score, drop, answer1_score, answer2_score, 
+                                 answer3_score, answer4_score, answer5_score, intervention_type),
+              by = "answer_id") %>% 
+    filter(state_enum == "Resolved", 
+           outcome_enum %notin% c("OenskerIkkeKontakt", "LukketEfter4Forsoeg")) %>%
+    mutate(
+        case_date = floor_date(closed_on, "day"),
+        week = floor_date(case_date, "week"),
+        supporter = assigned_to_supporter_id) %>% 
+    distinct(person_id, case_date, outcome_enum, .keep_all = T)
+
+case_calls_survey_period <- case_calls %>% filter(closed_on > ymd("2021-05-10"))
+
+calls_survey <- case_calls_survey_period %>% 
+    inner_join(survey_wide %>% mutate(survey_date = floor_date(ymd_hms(finished_on), "day")), 
+              by = "person_id") %>% 
+    arrange(person_id) %>% 
+    filter(survey_date >= case_date) %>% 
+    arrange(desc(case_date)) %>% 
+    distinct(person_id, survey_date, .keep_all = T) %>% 
+    select(case_id, survey_session_id, understood, useful, need, survey_date)
+
+dupes <- calls_survey %>% filter_dupes("case_id")
+
+calls_survey_no_dupes <- calls_survey %>% filter(!((case_id %in% dupes$case_id) & is.na(need)))
+
+calls_all <- case_calls_survey_period %>% 
+    left_join(calls_survey_no_dupes, by = "case_id") %>% 
+    left_join(answers %>% select(answer_id = id, previous_answer_id), by = "answer_id") %>% 
+    left_join(answers %>% select(previous_answer_id = id, previous_score = total_score), by = "previous_answer_id") %>% 
+    left_join(person %>% select(person_id = id, birth_year, gender, company_id), by = "person_id") %>% 
+    left_join(company %>% select(company_id = id, company = name), by = "company_id") %>% 
+    rename(eval_int = conversation_eval) %>% 
+    mutate(
+        survey_need = case_when(
+            need %in% c("Agree", "Strongly agree") ~ "Yes",
+            need == "Neither agree nor disagree" ~ "Neutral",
+            need %in% c("Disagree", "Strongly disagree") ~ "No"),
+        evaluation_need = case_when(
+            eval_int < 3 ~ "Yes",
+            eval_int >= 3 ~ "No")
+        ) %>% 
+    left_join(response_center %>% select(response_center_id = id, response_center = name), 
+              by = "response_center_id") %>% 
+    mutate(outcome_cat = ifelse(
+        outcome_enum %in% c("BodyPrivate", "BodyWorkRelated", "BodyOther"),
+        "Body", "General"
+    )) %>% 
+    mutate(eval = case_when(
+        eval_int == 1 ~ "Yes, very much",
+        eval_int == 2 ~ "Yes",
+        eval_int == 3 ~ "Not really",
+        eval_int == 4 ~ "No",
+        eval_int == 5 ~ "Not at all"
+    )) %>% 
+    select(-assigned_to_supporter_id) %>% 
+    mutate(across(
+        c(need, useful, understood), 
+        .fns = ~case_when(
+            . == "Strongly agree" ~ 1,
+            . == "Agree" ~ 2,
+            . == "Neither agree nor disagree" ~ 3,
+            . == "Disagree" ~ 4,
+            . == "Strongly disagree" ~ 5),
+        .names = "{col}_int"
+        )) %>% 
+    mutate(score_drop = previous_score - total_score) %>% 
+    rename(wellbeing_score = total_score) %>% 
+    mutate(need_binary = case_when(
+        survey_need %in% c("Yes", "Neutral") & evaluation_need == "Yes" ~ "Call needed",
+        survey_need == "No" & evaluation_need == "No" ~ "Call not needed",
+        !is.na(survey_need) & !is.na(evaluation_need) ~ "Unclear"
+    )) %>% 
+    mutate(need_binary_full = case_when(
+        is.na(survey_need) & is.na(evaluation_need) ~ NA_character_,
+        is.na(survey_need) & evaluation_need == "Yes" ~ "Call needed",
+        is.na(survey_need) & evaluation_need != "Yes" ~ "Call not needed",
+        is.na(evaluation_need) & survey_need %in% c("Yes", "Neutral") ~ "Call needed",
+        is.na(evaluation_need) & survey_need %notin% c("Yes", "Neutral") ~ "Call not needed",
+        !(is.na(evaluation_need) & is.na(survey_need)) ~ "Unclear")
+    ) %>% 
+    rename(counsellor = supporter) %>% 
+    mutate(wellbeing_category = case_when(
+        between(wellbeing_score, 0, 35) ~ "0-35",
+        between(wellbeing_score, 36, 50) ~  "36-50",
+        between(wellbeing_score, 51, 100) ~ "51-100"),
+        talk = case_when(
+            wellbeing_category == "0-35" ~ "proactive",
+            wellbeing_category == "36-50" & drop ~ "proactive",
+            T ~ "optional"
+        )
+    ) %>% 
+    mutate(need_score = case_when(
+        is.na(eval_int) ~ 2 * need_int,
+        is.na(need_int) ~ 2 * eval_int,
+        T ~ eval_int + need_int
+        )) %>% 
+    mutate(need_score = 6 - need_score) %>% 
+    mutate(type = ifelse(is.na(wellbeing_score), "body", "general"))
+
+
+calls <- calls_all %>%  
+    filter(
+        is.na(score_drop) | score_drop < 100,
+        response_center != "DSB") %>% 
+    filter(type == "general")
+
+body <- calls_all %>%  
+    filter(
+        is.na(score_drop) | score_drop < 100,
+        response_center != "DSB") %>% 
+    filter(type == "body")
+```
+
+<br>
+
+# Introduction
+
+From June 5th 2021 Howdy introduced a survey for their users asking about their recent call with a counsellor. They could fill in answers regarding calls going back to May 10th.
+
+From June 23rd it was introduced that the counsellors could evaluate the need for the call.
+
+In this report we will look at the data from the survey and evaluation, and investigate whether the criteria for being selected for a call with a counsellor could be improved.
+
+
+

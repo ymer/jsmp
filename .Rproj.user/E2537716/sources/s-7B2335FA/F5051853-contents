@@ -1,0 +1,107 @@
+Opsummerer services på hof niveau
+
+
+```{r}
+library(di)
+
+add_beregnere_if_not_present <- function(df){
+   for (col in c("Fritstillingsberegner", "Fratrædelsesgodtgørelses-beregner", 
+                 "120 dages-beregner", "Opsigelsesberegner")){
+      if (!(col %in% names(df))){
+         df <- df %>% mutate(!!col := 0)
+      }
+   }
+   df
+}
+
+group_h <- function(df, h, id){
+   df %>% group_by(!!sym(id), !!sym(h)) %>% 
+      summarise(n = n()) %>% 
+      pivot_wider(names_from = all_of(h), values_from = n, values_fill = 0)
+}
+
+filter_h2 <- function(df, fh2, id){
+   df %>% filter(h2 == fh2) %>% 
+      group_by(!!sym(id)) %>% 
+      summarise(!!fh2 := n())
+}
+
+
+get_stam <- function(id, stam, stam_koncern){
+   if (id == "koncern"){
+      stam_koncern
+   } else {
+      stam
+   }
+}
+
+
+get_overblik <-  function(periode, id){
+   load(glue("../../../R_fællesdata/periodexports/edw_{periode}.rda"))
+   
+   stam <- get_stam(id, stam, stam_koncern)
+   
+   overblik <- stam %>% 
+      distinct(!!sym(id), .keep_all = T) %>% 
+      select(!!sym(id)) %>% 
+        
+      left_join0(nyhedsbreve %>% filter(h2 %notin% c("", "Netværk")) %>% 
+                    group_h("h2", id), by = id) %>% 
+        
+      left_join0(arrangementer %>% filter_h2("Arrangementer og kurser", id), by = id) %>% 
+        
+      left_join0(so %>% group_h("h2", id), by = id) %>% 
+      rename(
+         `SO_Personalejuridisk rådgivning` = `Personalejuridisk rådgivning`,
+         `SO_Rådgivning af Juravagten` = `Rådgivning af Juravagten`
+         ) %>%
+   
+      left_join0(bind_rows(netværk, nyhedsbreve) %>% filter_h2("Netværk", id), by = id)%>% 
+      left_join0(netværk %>% filter_h2("Bestyrelser", id), by = id) %>% 
+      left_join0(netværk %>% filter_h2("Udvalg", id), by = id) %>% 
+      
+      left_join0(go %>% drop_na(h2) %>% group_h("h2", id), by = id) %>% 
+      
+      left_join0(go %>% filter(h2 %in% c("Personalejuridiske forhandlinger", 
+                                         "Øvrig personalejuridisk service",
+                                         "Retssager, voldgifter, mv.")) %>% 
+                    group_h("sagstype", id), by = id) %>% 
+        
+      left_join0(didk %>% group_h("h3", id) %>% 
+                    select(hof_nr, Opsigelsesberegner, `120-dagesberegning`, 
+                           `Fratrædelsesgodtgørelsesberegner`, `Fritstillingsberegner`
+                           ),
+                 by = id)  %>% 
+      
+      left_join0(didk %>% group_h("h2", id) %>% rename(eksporthåndbogen = "Abonnement på eksporthåndbogen"), by = id) %>%
+        
+      left_join0(certifikater %>% group_h("h3", id), by = id) %>% 
+        
+      add_beregnere_if_not_present() %>% 
+      
+      rowwise() %>%
+      mutate(`GO_Rådgivning af Juravagten` = ifelse("GO_Rådgivning af Juravagten" %in% names(.),
+                                                  `GO_Rådgivning af Juravagten`, 0)) %>% 
+      ungroup() %>% 
+      mutate(
+         `Personalejuridisk rådgivning` = `GO_Personalejuridisk rådgivning` + 
+            `SO_Personalejuridisk rådgivning`,
+         `Rådgivning af Juravagten` = `GO_Rådgivning af Juravagten` + `SO_Rådgivning af Juravagten`,
+         `Online beregnere` = Fritstillingsberegner + `Fratrædelsesgodtgørelses-beregner` + 
+            Opsigelsesberegner + `120 dages-beregner`,
+         `Online dokumenter` = `Download dokumenter` + `Købt dokumenter`,
+         ) %>% 
+      select(-c("GO_Rådgivning af Juravagten", "SO_Rådgivning af Juravagten", 
+                "GO_Personalejuridisk rådgivning", "SO_Personalejuridisk rådgivning")) %>% 
+      arrange(!!sym(id))
+   
+   save(stam, stam_afd, ikke_medlemmer, foreninger, go, so, nyhedsbreve, arrangementer, certifikater, netværk, 
+     netværk_period, foreninger_period, didk, mtu, kontingent, overblik,person,person_period,kontingent_netværk,
+     file = glue("periodexports/edw_{periode}_overblik.rda") %>% dpath())
+}
+
+#get_overblik("2020-09-22_2021-09-23","hof_nr")
+get_overblik("2019-10-01_2020-09-30", "hof_nr")
+```
+
+

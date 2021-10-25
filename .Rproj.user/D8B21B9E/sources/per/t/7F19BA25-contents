@@ -1,0 +1,113 @@
+get <- function(df, index, col, index_col=1){
+   df %>% filter(!!sym(names(df)[index_col]) == index) %>% pull(col)
+}
+
+dansk <- function(num){
+   format(num, big.mark = '.', decimal.mark = ',')
+   }
+
+`%notin%` <- Negate(`%in%`)
+
+summarise <- partial(summarise, .groups = 'drop')
+
+
+procent <- function(num){
+   scales::percent(num, decimal.mark = ",", accuracy = 0.1)
+}
+
+
+percent <- function(num){
+   scales::percent(num, decimal.mark = ".", accuracy = 0.1)
+}
+
+tab <- function(df, ...){
+   count(df, ..., sort = T) %>%
+      mutate(percent = percent(n / sum(n)))
+}
+
+
+fix_name <- function(s, truncate = 0){
+   s <- stringr::str_replace_all(s, "DI", "di") %>%
+      stringr::str_replace_all(
+         s,
+         pattern = c(
+            "'" = "",
+            "\"" = "",
+            "%" = "_percent_",
+            "#" = "_number_",
+            "Å" = "å",
+            "Æ" = "æ",
+            "Ø" = "ø",
+            "\\A[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]*(.*)$" = "\\1",
+            "[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]+" = ".")
+         ) %>%
+      snakecase::to_snake_case(numerals = "left")
+
+   s <- if_else(
+      str_sub(s, 1, 1) %in% as.character(0:9), paste0("n", s), s
+      )
+
+   s <- if_else(
+      truncate > 0, str_sub(s, 1, truncate), s
+      )
+
+   s
+   }
+
+
+fix_names <- function(df, truncate = 0){
+   names <- map_chr(names(df), ~fix_name(., truncate))
+
+   while (any(duplicated(names))) {
+      dupe_count <-
+         vapply(
+         seq_along(names), function(i) {
+            sum(names[i] == names[1:i])
+         },
+         1L
+         )
+
+      names[dupe_count > 1] <-
+         paste(
+            names[dupe_count > 1],
+            dupe_count[dupe_count > 1],
+            sep = "_"
+         )
+      }
+
+   names(df) <- names
+
+   if ("di_nr" %in% names(df)){df  <- relocate(df, di_nr)}
+   if ("hof_nr" %in% names(df)){df  <- relocate(df, hof_nr)}
+
+   df
+   }
+
+
+d <- function(df){
+   df %>% gt() %>%
+      tab_options(
+         data_row.padding = px(0),
+         table.align = "left",
+         table.margin.left = px(0),
+         table.border.top.style = "hidden",
+         table.border.bottom.style = "hidden",
+         table.font.size = 12
+         ) %>%
+      cols_align(align = "left")
+}
+
+
+left_join0 <- function(dt1, dt2, ..., fill = 0){
+   merged <- left_join(dt1, dt2, ...)
+   index_new_col <- (ncol(dt1) + 1):ncol(merged)
+   merged[, index_new_col][is.na(merged[, index_new_col])] <- fill
+   merged
+}
+
+filter_dupes <- function(df, col){
+   df %>% group_by(!!sym(col)) %>%
+      mutate(n = n()) %>%
+      filter(n > 1) %>%
+      arrange(!!sym(col))
+}

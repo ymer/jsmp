@@ -1,0 +1,25 @@
+Package: jsmp
+Type: Package
+Title: jsmp
+Version: 1.0.0
+Author: Jonatan Pallesen
+Description: A variety of things I find useful when working with R Tidyverse
+License: DI
+Encoding: UTF-8
+LazyData: true
+Depends:
+	tidyverse,
+	magrittr,
+	lubridate,
+	gt,
+	scales,
+	stringr,
+	snakecase
+Imports:
+	readxl, 
+	glue, 
+	patchwork,
+	ggbeeswarm
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
