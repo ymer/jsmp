@@ -86,7 +86,8 @@ mtcars %>% filter_dupes("wt")
 - `fix_names` : Changes the column names tidy style
 
 ```{r}
-iris %>% fix_names()
+iris %>% fix_names() %>% 
+   head()
 ```
 
 - `left_join0` : Performs a left_join, while setting values in missing rows to 0 instead of NA.
