@@ -31,30 +31,30 @@ Tidyverse:
 
 ## ggplot functions
 
--   `gg_regression_line` : Plots a regression line
-
--   `gg_loess_line` : Plots a loess regression line
-
 -   `gg_legend_remove` : Removes the legend
 
 -   `gg_legend_notitle` : Removes the legend title
 
 -   `gg_legend_bottom` : Moves the legend to the bottom of the plot
 
--   `gg_y_percent` : Changes the y-axis to percentage
+-   `gg_loess_line` : Plots a loess regression line
+
+-   `gg_regression_line` : Plots a regression line
+
+-   `gg_x_remove` : Removes the x-axis
+
+-   `gg_x_rotate` : Rotates x-axis labels 45°
+
+-   `gg_x_wrap` : Wraps text on x-axis labels
 
 -   `gg_y_big` : Changes the y-axis to avoid scientific notation for big
     numbers
 
--   `gg_y_zero` : Changes the y-axis to start at 0
+-   `gg_y_percent` : Changes the y-axis to percentage
 
 -   `gg_y_remove` : Removes the y-axis
 
--   `gg_x_wrap` : Wraps text on x-axis labels
-
--   `gg_x_rotate` : Rotates x-axis labels 45°
-
--   `gg_x_remove` : Removes the x-axis
+-   `gg_y_zero` : Adjusts the y-axis to start at 0
 
 <br>
 
