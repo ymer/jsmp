@@ -1,90 +1,4 @@
 
-``` r
-library(jsmp)
-```
-
-    ## Indlæser krævet pakke: tidyverse
-
-    ## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
-
-    ## v ggplot2 3.3.5     v purrr   0.3.4
-    ## v tibble  3.1.2     v dplyr   1.0.7
-    ## v tidyr   1.1.4     v stringr 1.4.0
-    ## v readr   2.0.2     v forcats 0.5.1
-
-    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-    ## x dplyr::filter() masks stats::filter()
-    ## x dplyr::lag()    masks stats::lag()
-
-    ## Indlæser krævet pakke: magrittr
-
-    ## 
-    ## Vedhæfter pakke: 'magrittr'
-
-    ## Det følgende objekt er maskeret fra 'package:purrr':
-    ## 
-    ##     set_names
-
-    ## Det følgende objekt er maskeret fra 'package:tidyr':
-    ## 
-    ##     extract
-
-    ## Indlæser krævet pakke: lubridate
-
-    ## 
-    ## Vedhæfter pakke: 'lubridate'
-
-    ## De følgende objekter er maskerede fra 'package:base':
-    ## 
-    ##     date, intersect, setdiff, union
-
-    ## Indlæser krævet pakke: gt
-
-    ## Indlæser krævet pakke: scales
-
-    ## 
-    ## Vedhæfter pakke: 'scales'
-
-    ## Det følgende objekt er maskeret fra 'package:purrr':
-    ## 
-    ##     discard
-
-    ## Det følgende objekt er maskeret fra 'package:readr':
-    ## 
-    ##     col_factor
-
-    ## Indlæser krævet pakke: snakecase
-
-    ## Indlæser krævet pakke: broom
-
-    ## Indlæser krævet pakke: glue
-
-    ## 
-    ## Vedhæfter pakke: 'glue'
-
-    ## Det følgende objekt er maskeret fra 'package:dplyr':
-    ## 
-    ##     collapse
-
-    ## Indlæser krævet pakke: patchwork
-
-    ## Indlæser krævet pakke: ggbeeswarm
-
-    ## 
-    ## Vedhæfter pakke: 'jsmp'
-
-    ## Det følgende objekt er maskeret fra 'package:scales':
-    ## 
-    ##     percent
-
-    ## Det følgende objekt er maskeret fra 'package:dplyr':
-    ## 
-    ##     summarise
-
-    ## Det følgende objekt er maskeret fra 'package:base':
-    ## 
-    ##     get
-
 <br>
 
 ## Description
@@ -102,12 +16,7 @@ Tidyverse:
 
 ## ggplot theme
 
-``` r
-mtcars %>% ggplot(aes(x = mpg, y = wt)) +
-   geom_point()
-```
-
-![](readme_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](figures/unnamed-chunk-1-1.png)<!-- -->
 
 <br>
 
@@ -146,17 +55,12 @@ mtcars %>% ggplot(aes(x = mpg, y = wt)) +
 
 -   `d` : Formats table (using `gt` as base)
 
-``` r
-iris %>% head() %>% 
-   d()
-```
-
-<div id="eomlxedect" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="zjbyczasge" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#eomlxedect .gt_table {
+#zjbyczasge .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: 0px;
@@ -181,7 +85,7 @@ iris %>% head() %>%
   border-left-color: #D3D3D3;
 }
 
-#eomlxedect .gt_heading {
+#zjbyczasge .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -193,7 +97,7 @@ iris %>% head() %>%
   border-right-color: #D3D3D3;
 }
 
-#eomlxedect .gt_title {
+#zjbyczasge .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -203,7 +107,7 @@ iris %>% head() %>%
   border-bottom-width: 0;
 }
 
-#eomlxedect .gt_subtitle {
+#zjbyczasge .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -213,13 +117,13 @@ iris %>% head() %>%
   border-top-width: 0;
 }
 
-#eomlxedect .gt_bottom_border {
+#zjbyczasge .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#eomlxedect .gt_col_headings {
+#zjbyczasge .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -234,7 +138,7 @@ iris %>% head() %>%
   border-right-color: #D3D3D3;
 }
 
-#eomlxedect .gt_col_heading {
+#zjbyczasge .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -254,7 +158,7 @@ iris %>% head() %>%
   overflow-x: hidden;
 }
 
-#eomlxedect .gt_column_spanner_outer {
+#zjbyczasge .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -266,15 +170,15 @@ iris %>% head() %>%
   padding-right: 4px;
 }
 
-#eomlxedect .gt_column_spanner_outer:first-child {
+#zjbyczasge .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eomlxedect .gt_column_spanner_outer:last-child {
+#zjbyczasge .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eomlxedect .gt_column_spanner {
+#zjbyczasge .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -286,7 +190,7 @@ iris %>% head() %>%
   width: 100%;
 }
 
-#eomlxedect .gt_group_heading {
+#zjbyczasge .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -308,7 +212,7 @@ iris %>% head() %>%
   vertical-align: middle;
 }
 
-#eomlxedect .gt_empty_group_heading {
+#zjbyczasge .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -323,15 +227,15 @@ iris %>% head() %>%
   vertical-align: middle;
 }
 
-#eomlxedect .gt_from_md > :first-child {
+#zjbyczasge .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eomlxedect .gt_from_md > :last-child {
+#zjbyczasge .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eomlxedect .gt_row {
+#zjbyczasge .gt_row {
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 5px;
@@ -350,7 +254,7 @@ iris %>% head() %>%
   overflow-x: hidden;
 }
 
-#eomlxedect .gt_stub {
+#zjbyczasge .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -362,7 +266,7 @@ iris %>% head() %>%
   padding-left: 12px;
 }
 
-#eomlxedect .gt_summary_row {
+#zjbyczasge .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -372,7 +276,7 @@ iris %>% head() %>%
   padding-right: 5px;
 }
 
-#eomlxedect .gt_first_summary_row {
+#zjbyczasge .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -382,7 +286,7 @@ iris %>% head() %>%
   border-top-color: #D3D3D3;
 }
 
-#eomlxedect .gt_grand_summary_row {
+#zjbyczasge .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -392,7 +296,7 @@ iris %>% head() %>%
   padding-right: 5px;
 }
 
-#eomlxedect .gt_first_grand_summary_row {
+#zjbyczasge .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -402,11 +306,11 @@ iris %>% head() %>%
   border-top-color: #D3D3D3;
 }
 
-#eomlxedect .gt_striped {
+#zjbyczasge .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eomlxedect .gt_table_body {
+#zjbyczasge .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -415,7 +319,7 @@ iris %>% head() %>%
   border-bottom-color: #D3D3D3;
 }
 
-#eomlxedect .gt_footnotes {
+#zjbyczasge .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -429,13 +333,13 @@ iris %>% head() %>%
   border-right-color: #D3D3D3;
 }
 
-#eomlxedect .gt_footnote {
+#zjbyczasge .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#eomlxedect .gt_sourcenotes {
+#zjbyczasge .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -449,41 +353,41 @@ iris %>% head() %>%
   border-right-color: #D3D3D3;
 }
 
-#eomlxedect .gt_sourcenote {
+#zjbyczasge .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#eomlxedect .gt_left {
+#zjbyczasge .gt_left {
   text-align: left;
 }
 
-#eomlxedect .gt_center {
+#zjbyczasge .gt_center {
   text-align: center;
 }
 
-#eomlxedect .gt_right {
+#zjbyczasge .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eomlxedect .gt_font_normal {
+#zjbyczasge .gt_font_normal {
   font-weight: normal;
 }
 
-#eomlxedect .gt_font_bold {
+#zjbyczasge .gt_font_bold {
   font-weight: bold;
 }
 
-#eomlxedect .gt_font_italic {
+#zjbyczasge .gt_font_italic {
   font-style: italic;
 }
 
-#eomlxedect .gt_super {
+#zjbyczasge .gt_super {
   font-size: 65%;
 }
 
-#eomlxedect .gt_footnote_marks {
+#zjbyczasge .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -539,9 +443,7 @@ iris %>% head() %>%
 
 -   `filter_dupes` : selects duplicated rows
 
-``` r
-mtcars %>% filter_dupes("wt")
-```
+<!-- -->
 
     ## # A tibble: 5 x 12
     ## # Groups:   wt [2]
@@ -555,9 +457,7 @@ mtcars %>% filter_dupes("wt")
 
 -   `fix_names` : Changes the column names tidy style
 
-``` r
-iris %>% fix_names()
-```
+<!-- -->
 
     ##     sepal_length sepal_width petal_length petal_width    species
     ## 1            5.1         3.5          1.4         0.2     setosa
@@ -714,22 +614,7 @@ iris %>% fix_names()
 -   `left_join0` : Performs a left_join, while setting values in missing
     rows to 0 instead of NA.
 
-``` r
-df1 <- tribble(
-   ~id, ~v1,
-   1, 2,
-   2, 2,
-   3, 10)
-
-df2 <- tribble(
-   ~id, ~v2,
-   1, 2,
-   3, 4)
-
-left_join(df1, df2)
-```
-
-    ## Joining, by = "id"
+<!-- -->
 
     ## # A tibble: 3 x 3
     ##      id    v1    v2
@@ -740,12 +625,6 @@ left_join(df1, df2)
 
 <br>
 
-``` r
-left_join0(df1, df2)
-```
-
-    ## Joining, by = "id"
-
     ## # A tibble: 3 x 3
     ##      id    v1    v2
     ##   <dbl> <dbl> <dbl>
@@ -755,20 +634,13 @@ left_join0(df1, df2)
 
 -   `percent` : Returns proportion formatted as percentage
 
-``` r
-percent(0.173234235)
-```
+<!-- -->
 
     ## [1] "17.3%"
 
 -   `rows` : Facilitates looping
 
-``` r
-df <- mtcars %>% head()
-for (row in rows(df)){
-   print(row$mpg)
-}
-```
+<!-- -->
 
     ## [1] 21
     ## [1] 21
@@ -780,35 +652,17 @@ for (row in rows(df)){
 -   `summarise` : Overrides the standard summarise function, so that
     grouping is dropped after
 
-``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-```
-
-    ## `summarise()` has grouped output by 'am'. You can override using the `.groups` argument.
+<!-- -->
 
     ## [1] "am"
 
 <br>
 
-``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-```
-
     ## character(0)
 
 -   `tab` : Ordered `count` including percentage
 
-``` r
-iris %>% 
-   fix_names() %>% 
-   tab(species)
-```
+<!-- -->
 
     ##      species  n percent
     ## 1     setosa 50   33.3%

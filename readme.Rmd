@@ -6,7 +6,13 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r}
+```{r setup, include=FALSE,echo=FALSE}
+knitr::opts_chunk$set(
+  echo = F, message = F, warning = F,
+  fig.width = 8, fig.height = 5,
+  fig.path = "figures/"
+  )
+
 library(jsmp)
 ```
 
