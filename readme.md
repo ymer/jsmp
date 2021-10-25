@@ -5,8 +5,6 @@
 
 <br>
 
-## Description
-
 This package does variety of things I find useful when working with R
 Tidyverse:
 
@@ -179,11 +177,11 @@ iris %>%
 
 ## Imported packages
 
--   tidyverse
--   ggbeeswarm
--   glue
--   gt
--   magrittr
--   patchwork
--   readxl
--   stringr
+-   [broom](https://github.com/tidymodels/broom)
+-   [glue](https://github.com/tidyverse/glue)
+-   [gt](https://github.com/rstudio/gt)
+-   [lubridate](https://github.com/tidyverse/lubridate)
+-   [magrittr](https://github.com/tidyverse/magrittr)
+-   [patchwork](https://github.com/thomasp85/patchwork)
+-   [stringr](https://stringr.tidyverse.org/)
+-   [tidyverse](https://github.com/tidyverse/tidyverse)
