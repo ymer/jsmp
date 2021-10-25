@@ -23,11 +23,11 @@ library(jsmp)
 
 This package does variety of things I find useful when working with R Tidyverse:
 
-- Import commonly used packages
-- Changes the default ggplot theme
-- Overrides dplyr::summarise to remove grouping
-- Contains various functions for use with ggplot
-- Contains various functions for use in tidy code
+- [Import commonly used packages](#imports)
+- [Changes the default ggplot theme](#theme)
+- [Overrides dplyr::summarise to remove grouping](#general)
+- [Contains various functions for use with ggplot](#gg)
+- [Contains various functions for use in tidy code](#general)
 
 <br>
 
@@ -37,7 +37,7 @@ This package does variety of things I find useful when working with R Tidyverse:
 
 <br>
 
-## Custom ggplot theme
+## Custom ggplot theme {#theme}
 
 ```{r, fig.width = 4, fig.height = 3}
 mtcars %>% ggplot(aes(x = mpg, y = disp)) +
@@ -46,7 +46,7 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 
 <br>
 
-## ggplot functions
+## ggplot functions {#gg}
 
 - `gg_regression_line` : Plots a regression line
 
@@ -76,7 +76,7 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 
 <br>
 
-## General functions
+## General functions {#general}
 
 - `%notin%` : As `%in%` but exclusionary
 
@@ -162,7 +162,7 @@ iris %>%
 
 <br>
 
-## Imported packages
+## Imported packages {#imports}
 
 - [broom](https://github.com/tidymodels/broom)
 - [glue](https://github.com/tidyverse/glue)

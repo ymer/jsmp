@@ -8,11 +8,11 @@
 This package does variety of things I find useful when working with R
 Tidyverse:
 
--   Import commonly used packages
--   Changes the default ggplot theme
--   Overrides dplyr::summarise to remove grouping
--   Contains various functions for use with ggplot
--   Contains various functions for use in tidy code
+-   [Import commonly used packages](#imports)
+-   [Changes the default ggplot theme](#theme)
+-   [Overrides dplyr::summarise to remove grouping](#general)
+-   [Contains various functions for use with ggplot](#gg)
+-   [Contains various functions for use in tidy code](#general)
 
 <br>
 
