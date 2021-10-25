@@ -80,6 +80,20 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 
 - `summarise` : Overrides the standard summarise function, so that grouping is dropped after
 
+```{r, echo = T}
+mtcars %>% 
+   group_by(am, gear) %>% 
+   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+```
+
+```{r, echo = T}
+mtcars %>% 
+   group_by(am, gear) %>% 
+   summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+```
+
 - `%notin%` : As `%in%` but exclusionary
 
 - `d` : Formats table (using `gt` as base)
@@ -133,22 +147,6 @@ for (row in rows(df)){
    print(row$mpg)
 }
 ```
-
-
-```{r, echo = T}
-mtcars %>% 
-   group_by(am, gear) %>% 
-   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-```
-
-```{r, echo = T}
-mtcars %>% 
-   group_by(am, gear) %>% 
-   summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-```
-
 
 - `tab` : Ordered `count` including percentage
 

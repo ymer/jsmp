@@ -63,6 +63,22 @@ Tidyverse:
 -   `summarise` : Overrides the standard summarise function, so that
     grouping is dropped after
 
+``` r
+mtcars %>% 
+   group_by(am, gear) %>% 
+   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+#> [1] "am"
+```
+
+``` r
+mtcars %>% 
+   group_by(am, gear) %>% 
+   summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+#> character(0)
+```
+
 -   `%notin%` : As `%in%` but exclusionary
 
 -   `d` : Formats table (using `gt` as base)
@@ -150,22 +166,6 @@ for (row in rows(df)){
 #> [1] 21.4
 #> [1] 18.7
 #> [1] 18.1
-```
-
-``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-#> [1] "am"
-```
-
-``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   summarise(mean_mpg = mean(mpg)) %>% 
-   group_vars()
-#> character(0)
 ```
 
 -   `tab` : Ordered `count` including percentage
