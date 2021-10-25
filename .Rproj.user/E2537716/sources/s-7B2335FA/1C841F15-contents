@@ -8,7 +8,6 @@ output: github_document
 ```{r setup, include=FALSE,echo=FALSE}
 knitr::opts_chunk$set(
   echo = F, message = F, warning = F,
-  fig.width = 8, fig.height = 5,
   fig.path = "man/figures/",
   comment = "#>"
   )
@@ -34,7 +33,7 @@ This package does variety of things I find useful when working with R Tidyverse:
 
 <br>
 
-## ggplot theme
+## Custom ggplot theme
 
 ```{r}
 mtcars %>% ggplot(aes(x = mpg, y = wt)) +

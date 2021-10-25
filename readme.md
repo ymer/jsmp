@@ -18,7 +18,7 @@ Tidyverse:
 
 <br>
 
-## ggplot theme
+## Custom ggplot theme
 
 ![](man/figures/unnamed-chunk-1-1.png)<!-- -->
 
