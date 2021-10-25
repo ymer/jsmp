@@ -8,11 +8,12 @@
 This package does variety of things I find useful when working with R
 Tidyverse:
 
--   [Import commonly used packages](#imports)
--   [Changes the default ggplot theme](#theme)
--   [Overrides dplyr::summarise to remove grouping](#general)
--   [Contains various functions for use with ggplot](#gg)
--   [Contains various functions for use in tidy code](#general)
+-   [Import commonly used packages](#imported-packages)
+-   [Changes the default ggplot theme](#custom-ggplot-theme)
+-   [Overrides dplyr::summarise to remove grouping](#general-functions)
+-   [Contains various functions for use with ggplot](#ggplot-functions)
+-   [Contains various functions for use in tidy
+    code](#general-functions)
 
 <br>
 
@@ -58,6 +59,9 @@ Tidyverse:
 <br>
 
 ## General functions
+
+-   `summarise` : Overrides the standard summarise function, so that
+    grouping is dropped after
 
 -   `%notin%` : As `%in%` but exclusionary
 
@@ -147,9 +151,6 @@ for (row in rows(df)){
 #> [1] 18.7
 #> [1] 18.1
 ```
-
--   `summarise` : Overrides the standard summarise function, so that
-    grouping is dropped after
 
 ``` r
 mtcars %>% 
