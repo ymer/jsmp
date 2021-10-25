@@ -29,6 +29,11 @@ This package does variety of things I find useful when working with R Tidyverse:
 - Contains various functions for use with ggplot
 - Contains various functions for use in tidy code
 
+<br>
+
+## Installation
+
+`devtools::install_github("ymer/jsmp")`
 
 <br>
 

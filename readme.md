@@ -16,6 +16,12 @@ Tidyverse:
 
 <br>
 
+## Installation
+
+`devtools::install_github("ymer/jsmp")`
+
+<br>
+
 ## Custom ggplot theme
 
 ![](man/figures/unnamed-chunk-1-1.png)<!-- -->
