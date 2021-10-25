@@ -56,7 +56,7 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 
 - `gg_legend_bottom` : Moves the legend to the bottom of the plot
 
-- `gg_loess_line` : Plots a loess regression line
+- `gg_loess_line` : Plots a locally weighed regression line
 
 - `gg_regression_line` : Plots a regression line
 
