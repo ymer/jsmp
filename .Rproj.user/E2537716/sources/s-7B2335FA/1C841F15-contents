@@ -79,20 +79,20 @@ mtcars %>% ggplot(aes(x = mpg, y = wt)) +
 
 - `filter_dupes` : selects duplicated rows
 
-```{r}
+```{r, echo = T}
 mtcars %>% filter_dupes("wt")
 ```
 
 - `fix_names` : Changes the column names tidy style
 
-```{r}
+```{r, echo = T}
 iris %>% fix_names() %>% 
    head()
 ```
 
 - `left_join0` : Performs a left_join, while setting values in missing rows to 0 instead of NA.
 
-```{r}
+```{r, echo = T}
 df1 <- tribble(
    ~id, ~v1,
    1, 2,
@@ -109,20 +109,20 @@ left_join(df1, df2)
 
 <br>
 
-```{r}
+```{r, echo = T}
 left_join0(df1, df2)
 ```
 
 
 - `percent` : Returns proportion formatted as percentage
 
-```{r}
+```{r, echo = T}
 percent(0.173234235)
 ```
 
 - `rows` :  Facilitates looping
 
-```{r}
+```{r, echo = T}
 df <- mtcars %>% head()
 for (row in rows(df)){
    print(row$mpg)
@@ -133,7 +133,7 @@ for (row in rows(df)){
 - `summarise` : Overrides the standard summarise function, so that grouping is dropped after
 
 
-```{r}
+```{r, echo = T}
 mtcars %>% 
    group_by(am, gear) %>% 
    dplyr::summarise(mean_mpg = mean(mpg)) %>% 
@@ -142,7 +142,7 @@ mtcars %>%
 
 <br>
 
-```{r}
+```{r, echo = T}
 mtcars %>% 
    group_by(am, gear) %>% 
    summarise(mean_mpg = mean(mpg)) %>% 
@@ -152,7 +152,7 @@ mtcars %>%
 
 - `tab` : Ordered `count` including percentage
 
-```{r}
+```{r, echo = T}
 iris %>% 
    fix_names() %>% 
    tab(species)

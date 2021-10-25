@@ -57,7 +57,9 @@ Tidyverse:
 
 -   `filter_dupes` : selects duplicated rows
 
-<!-- -->
+``` r
+mtcars %>% filter_dupes("wt")
+```
 
     ## # A tibble: 5 x 12
     ## # Groups:   wt [2]
@@ -71,7 +73,10 @@ Tidyverse:
 
 -   `fix_names` : Changes the column names tidy style
 
-<!-- -->
+``` r
+iris %>% fix_names() %>% 
+   head()
+```
 
     ##   sepal_length sepal_width petal_length petal_width species
     ## 1          5.1         3.5          1.4         0.2  setosa
@@ -84,7 +89,20 @@ Tidyverse:
 -   `left_join0` : Performs a left_join, while setting values in missing
     rows to 0 instead of NA.
 
-<!-- -->
+``` r
+df1 <- tribble(
+   ~id, ~v1,
+   1, 2,
+   2, 2,
+   3, 10)
+
+df2 <- tribble(
+   ~id, ~v2,
+   1, 2,
+   3, 4)
+
+left_join(df1, df2)
+```
 
     ## # A tibble: 3 x 3
     ##      id    v1    v2
@@ -95,6 +113,10 @@ Tidyverse:
 
 <br>
 
+``` r
+left_join0(df1, df2)
+```
+
     ## # A tibble: 3 x 3
     ##      id    v1    v2
     ##   <dbl> <dbl> <dbl>
@@ -104,13 +126,20 @@ Tidyverse:
 
 -   `percent` : Returns proportion formatted as percentage
 
-<!-- -->
+``` r
+percent(0.173234235)
+```
 
     ## [1] "17.3%"
 
 -   `rows` : Facilitates looping
 
-<!-- -->
+``` r
+df <- mtcars %>% head()
+for (row in rows(df)){
+   print(row$mpg)
+}
+```
 
     ## [1] 21
     ## [1] 21
@@ -122,17 +151,33 @@ Tidyverse:
 -   `summarise` : Overrides the standard summarise function, so that
     grouping is dropped after
 
-<!-- -->
+``` r
+mtcars %>% 
+   group_by(am, gear) %>% 
+   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+```
 
     ## [1] "am"
 
 <br>
 
+``` r
+mtcars %>% 
+   group_by(am, gear) %>% 
+   summarise(mean_mpg = mean(mpg)) %>% 
+   group_vars()
+```
+
     ## character(0)
 
 -   `tab` : Ordered `count` including percentage
 
-<!-- -->
+``` r
+iris %>% 
+   fix_names() %>% 
+   tab(species)
+```
 
     ##      species  n percent
     ## 1     setosa 50   33.3%
