@@ -77,12 +77,6 @@ mtcars %>% ggplot(aes(x = mpg, y = wt)) +
 
 - `d` : Formats table (using `gt` as base)
 
-```{r}
-iris %>% head() %>% 
-   d()
-```
-
-
 - `filter_dupes` : selects duplicated rows
 
 ```{r}
