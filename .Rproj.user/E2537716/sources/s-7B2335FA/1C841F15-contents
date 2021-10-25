@@ -9,6 +9,7 @@ output: github_document
 knitr::opts_chunk$set(
   echo = F, message = F, warning = F,
   fig.path = "man/figures/",
+  collapse = T,
   comment = "#>"
   )
 
@@ -35,8 +36,8 @@ This package does variety of things I find useful when working with R Tidyverse:
 
 ## Custom ggplot theme
 
-```{r}
-mtcars %>% ggplot(aes(x = mpg, y = wt)) +
+```{r, fig.width = 4, fig.height = 3}
+mtcars %>% ggplot(aes(x = mpg, y = disp)) +
    geom_point()
 ```
 
@@ -108,8 +109,6 @@ df2 <- tribble(
 left_join(df1, df2)
 ```
 
-<br>
-
 ```{r, echo = T}
 left_join0(df1, df2)
 ```
@@ -140,8 +139,6 @@ mtcars %>%
    dplyr::summarise(mean_mpg = mean(mpg)) %>% 
    group_vars()
 ```
-
-<br>
 
 ```{r, echo = T}
 mtcars %>% 
