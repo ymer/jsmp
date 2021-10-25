@@ -152,9 +152,9 @@ for (row in rows(df)){
 - `tab` : Ordered `count` including percentage
 
 ```{r, echo = T}
-iris %>% 
-   fix_names() %>% 
-   tab(species)
+ToothGrowth %>%
+   filter(len > 20) %>% 
+   tab(supp)
 ```
 
 

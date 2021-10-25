@@ -171,13 +171,12 @@ for (row in rows(df)){
 -   `tab` : Ordered `count` including percentage
 
 ``` r
-iris %>% 
-   fix_names() %>% 
-   tab(species)
-#>      species  n percent
-#> 1     setosa 50   33.3%
-#> 2 versicolor 50   33.3%
-#> 3  virginica 50   33.3%
+ToothGrowth %>%
+   filter(len > 20) %>% 
+   tab(supp)
+#>   supp  n percent
+#> 1   OJ 18   64.3%
+#> 2   VC 10   35.7%
 ```
 
 <br>
