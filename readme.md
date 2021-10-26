@@ -10,7 +10,8 @@ Tidyverse:
 
 -   [Import commonly used packages](#imported-packages)
 -   [Changes the default ggplot theme](#custom-ggplot-theme)
--   [Overrides dplyr::summarise to remove grouping](#general-functions)
+-   [Overrides dplyr::summarise to remove leftover
+    grouping](#general-functions)
 -   [Contains various functions for use with ggplot](#ggplot-functions)
 -   [Contains various functions for use in tidy
     code](#general-functions)
@@ -37,7 +38,7 @@ Tidyverse:
 
 -   `gg_legend_bottom` : Moves the legend to the bottom of the plot
 
--   `gg_loess_line` : Plots a loess regression line
+-   `gg_loess_line` : Plots a locally weighed regression line
 
 -   `gg_regression_line` : Plots a regression line
 
@@ -54,14 +55,14 @@ Tidyverse:
 
 -   `gg_y_remove` : Removes the y-axis
 
--   `gg_y_zero` : Adjusts the y-axis to start at 0
+-   `gg_y_zero` : Adjusts the y-axis to start at exactly 0
 
 <br>
 
 ## General functions
 
 -   `summarise` : Overrides the standard summarise function, so that
-    grouping is dropped after
+    leftover grouping is dropped after summarising
 
 ``` r
 mtcars %>% 
@@ -98,7 +99,7 @@ mtcars %>% filter_dupes("wt")
 #> 5  15       8  301    335  3.54  3.57  14.6     0     1     5     8     2
 ```
 
--   `fix_names` : Changes the column names tidy style
+-   `fix_names` : Changes the column names to tidy style
 
 ``` r
 iris %>% fix_names() %>% 

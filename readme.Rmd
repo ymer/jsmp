@@ -25,7 +25,7 @@ This package does variety of things I find useful when working with R Tidyverse:
 
 - [Import commonly used packages](#imported-packages)
 - [Changes the default ggplot theme](#custom-ggplot-theme)
-- [Overrides dplyr::summarise to remove grouping](#general-functions)
+- [Overrides dplyr::summarise to remove leftover grouping](#general-functions)
 - [Contains various functions for use with ggplot](#ggplot-functions)
 - [Contains various functions for use in tidy code](#general-functions)
 
@@ -72,14 +72,14 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 
 - `gg_y_remove` : Removes the y-axis
 
-- `gg_y_zero` : Adjusts the y-axis to start at 0
+- `gg_y_zero` : Adjusts the y-axis to start at exactly 0
 
 
 <br>
 
 ## General functions
 
-- `summarise` : Overrides the standard summarise function, so that grouping is dropped after
+- `summarise` : Overrides the standard summarise function, so that leftover grouping is dropped after summarising
 
 ```{r, echo = T}
 mtcars %>% 
@@ -105,7 +105,7 @@ mtcars %>%
 mtcars %>% filter_dupes("wt")
 ```
 
-- `fix_names` : Changes the column names tidy style
+- `fix_names` : Changes the column names to tidy style
 
 ```{r, echo = T}
 iris %>% fix_names() %>% 
