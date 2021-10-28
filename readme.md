@@ -177,7 +177,6 @@ ToothGrowth %>%
    group_by(supp) %>% 
    summarise_cis("len") %>% 
    ggplot(aes(y = supp, x = mean)) +
-   geom_point() +
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```
 
