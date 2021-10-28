@@ -112,13 +112,13 @@ ci <- function(v, conf = 0.95){
    return(c(mean - error, mean, mean + error))
 }
 
-summarise_cis <- function(df, v){
+summarise_cis <- function(df, v, conf = 0.95){
    df %>%
       drop_na(!!sym(v)) %>%
       summarise(
-         ci.lower = ci(!!sym(v))[1],
-         mean = ci(!!sym(v))[2],
-         ci.upper = ci(!!sym(v))[3]
+         ci.lower = ci(!!sym(v), conf)[1],
+         mean = ci(!!sym(v), conf)[2],
+         ci.upper = ci(!!sym(v), conf)[3]
       )
 }
 
