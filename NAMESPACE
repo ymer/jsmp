@@ -7,6 +7,7 @@ export(`%notin%`)
 export(left_join0)
 export(rows)
 export(percent)
+export(summarise_cis)
 
 export(c1)
 export(gg_y_percent)

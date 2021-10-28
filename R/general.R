@@ -102,3 +102,23 @@ rows <- function(t){
    a <- 1:nrow(t)
    map(a, ~slice(t, .:.))
 }
+
+ci <- function(v, conf = 0.95){
+   mean = mean(v)
+   sd <- sd(v)
+   n <- length(v)
+   se <- sd / sqrt(n)
+   error <- qt(conf + (1 - conf) / 2, df = n-1) * se
+   return(c(mean - error, mean, mean + error))
+}
+
+summarise_cis <- function(df, v){
+   df %>%
+      drop_na(!!sym(v)) %>%
+      summarise(
+         ci.lower = ci(!!sym(v))[1],
+         mean = ci(!!sym(v))[2],
+         ci.upper = ci(!!sym(v))[3]
+      )
+}
+

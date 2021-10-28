@@ -169,6 +169,20 @@ for (row in rows(df)){
 #> [1] 18.1
 ```
 
+-   `summarise_cis` : Finds the upper and lower confidence interval
+    along with the mean
+
+``` r
+ToothGrowth %>% 
+   group_by(supp) %>% 
+   summarise_cis("len") %>% 
+   ggplot(aes(y = supp, x = mean)) +
+   geom_point() +
+   geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
+```
+
+![](man/figures/unnamed-chunk-10-1.png)<!-- -->
+
 -   `tab` : Ordered `count` including percentage
 
 ``` r
