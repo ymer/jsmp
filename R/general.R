@@ -13,8 +13,7 @@ tab <- function(df, ...){
 
 
 fix_name <- function(s, truncate = 0){
-   s <- stringr::str_replace_all(s, "DI", "di") %>%
-      stringr::str_replace_all(
+   s <- stringr::str_replace_all(
          s,
          pattern = c(
             "'" = "",
@@ -62,9 +61,6 @@ fix_names <- function(df, truncate = 0){
       }
 
    names(df) <- names
-
-   if ("di_nr" %in% names(df)){df  <- relocate(df, di_nr)}
-   if ("hof_nr" %in% names(df)){df  <- relocate(df, hof_nr)}
 
    df
    }

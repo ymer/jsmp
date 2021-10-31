@@ -13,12 +13,12 @@ Depends:
 	gt,
 	scales,
 	stringr,
-	snakecase
-Imports:
-	glue, 
 	patchwork,
 	broom,
+	glue,
 	lubridate
+Imports:
+	snakecase
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
