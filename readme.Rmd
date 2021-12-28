@@ -171,6 +171,16 @@ ToothGrowth %>%
 
 <br>
 
+- `transpose` : Flips rows and columns
+
+```{r}
+mtcars %>% 
+   rownames_to_column() %>% 
+   transpose()
+```
+
+<br>
+
 ## Imported packages
 
 - [broom](https://github.com/tidymodels/broom)

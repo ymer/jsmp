@@ -16,7 +16,8 @@ Depends:
 	patchwork,
 	broom,
 	glue,
-	lubridate
+	lubridate,
+	pander
 Imports:
 	snakecase
 Suggests: 

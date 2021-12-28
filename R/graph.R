@@ -24,21 +24,34 @@ c1 <- "#00aae3"
    )
 }
 
-gg_y_percent <- function() {scale_y_continuous(
+gg_y_percent <- function(...) {scale_y_continuous(
    labels = scales::label_percent(accuracy = 1L),
-   expand = expansion(mult = c(0, 0.04)))}
+   expand = expansion(mult = c(0, 0.04)),
+   ...)}
 
-gg_y_big <- function() {scale_y_continuous(labels = function(x) format(x, big.mark = ".", decimal.mark = ","))}
+gg_y_big <- function(...) {scale_y_continuous(
+   labels = function(x) format(x, big.mark = ".", decimal.mark = ","), ...)}
 
-gg_x_wrap <- function() {scale_x_discrete(labels = function(x) str_wrap(x, width = 20))}
+gg_x_wrap <- function(...) {scale_x_discrete(labels = function(x) str_wrap(x, width = 20), ...)}
 
 gg_x_rotate <- function(){theme(axis.text.x = element_text(angle = 45, hjust = 1))}
 
-gg_y_zero <- function(){
+gg_y_zero <- function(...){
+   scale_y_continuous(
+      breaks = scales::pretty_breaks(),
+      labels = function(x) format(x, big.mark = ".", decimal.mark = ","),
+      limits = c(0, NA),
+      expand = expansion(mult = c(0, 0.04)),
+      ...)
+}
+
+gg_y_percent_zero <- function(...){
    scale_y_continuous(
       breaks = scales::pretty_breaks(),
       limits = c(0, NA),
-      expand = expansion(mult = c(0, 0.04)))
+      labels = scales::label_percent(accuracy = 1L),
+      expand = expansion(mult = c(0, 0.04)),
+      ...)
 }
 
 

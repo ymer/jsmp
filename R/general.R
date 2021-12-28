@@ -20,9 +20,6 @@ fix_name <- function(s, truncate = 0){
             "\"" = "",
             "%" = "_percent_",
             "#" = "_number_",
-            "Å" = "å",
-            "Æ" = "æ",
-            "Ø" = "ø",
             "\\A[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]*(.*)$" = "\\1",
             "[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]+" = ".")
          ) %>%
@@ -116,5 +113,16 @@ summarise_cis <- function(df, v, conf = 0.95){
          mean = ci(!!sym(v), conf)[2],
          ci.upper = ci(!!sym(v), conf)[3]
       )
+}
+
+transpose <- function(df, col1_name = "attribute"){
+   is_all_numeric <- function(x) {
+      !any(is.na(suppressWarnings(as.numeric(na.omit(x))))) & is.character(x)
+   }
+   first_col <- names(df)[1]
+   df %>% mutate(across(everything(), as.character)) %>%
+      pivot_longer(cols = -first_col, names_to = col1_name) %>%
+      pivot_wider(names_from = first_col, values_from = value) %>%
+      mutate_if(is_all_numeric,as.numeric)
 }
 
