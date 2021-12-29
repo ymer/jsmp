@@ -49,6 +49,7 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 ## ggplot functions
 
 
+- `gg_hist_percent` : Draws a histogram with y-axis as a percentage
 
 - `gg_legend_remove` : Removes the legend
 
@@ -69,6 +70,8 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 - `gg_y_big` : Changes the y-axis to avoid scientific notation for big numbers
 
 - `gg_y_percent` : Changes the y-axis to percentage
+
+- `gg_y_percent_zero` : Changes the y-axis to percentage, and adjusts the y-axis to start at 0.
 
 - `gg_y_remove` : Removes the y-axis
 

@@ -78,3 +78,12 @@ gg_x_remove <- function(){
       axis.text.y = element_blank(),
       axis.ticks.x = element_blank())
 }
+
+gg_hist_percent <- function(df, yvar){
+   ggplot(df) +
+      stat_count(mapping = aes(x={{yvar}}, y=..prop.., group=1)) +
+      gg_y_percent_zero() +
+      labs(y = "")
+}
+
+
