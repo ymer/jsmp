@@ -105,7 +105,7 @@ mtcars |>
 - `filter_dupes` : selects duplicated rows
 
 ```{r, echo = T}
-mtcars |> filter_dupes("wt")
+mtcars |> filter_dupes(wt)
 ```
 
 - `fix_names` : Changes the column names to tidy style
@@ -157,7 +157,7 @@ for (row in rows(df)){
 ```{r, echo = T, fig.width = 4, fig.height = 3}
 ToothGrowth |> 
    group_by(supp) |> 
-   summarise_cis("len") |> 
+   summarise_cis(len) |> 
    ggplot(aes(y = supp, x = mean)) +
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```

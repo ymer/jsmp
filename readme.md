@@ -92,7 +92,7 @@ mtcars |>
 -   `filter_dupes` : selects duplicated rows
 
 ``` r
-mtcars |> filter_dupes("wt")
+mtcars |> filter_dupes(wt)
 #> # A tibble: 5 x 12
 #> # Groups:   wt [2]
 #>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb     n
@@ -180,7 +180,7 @@ for (row in rows(df)){
 ``` r
 ToothGrowth |> 
    group_by(supp) |> 
-   summarise_cis("len") |> 
+   summarise_cis(len) |> 
    ggplot(aes(y = supp, x = mean)) +
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```

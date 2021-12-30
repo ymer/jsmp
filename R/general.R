@@ -85,10 +85,10 @@ left_join0 <- function(dt1, dt2, ..., fill = 0){
 }
 
 filter_dupes <- function(df, col){
-   df |> group_by(!!sym(col)) |>
+   df |> group_by({{col}}) |>
       mutate(n = n()) |>
       filter(n > 1) |>
-      arrange(!!sym(col))
+      arrange({{col}})
 }
 
 rows <- function(t){
@@ -107,11 +107,11 @@ ci <- function(v, conf = 0.95){
 
 summarise_cis <- function(df, v, conf = 0.95){
    df |>
-      drop_na(!!sym(v)) |>
+      drop_na({{v}}) |>
       summarise(
-         ci.lower = ci(!!sym(v), conf)[1],
-         mean = ci(!!sym(v), conf)[2],
-         ci.upper = ci(!!sym(v), conf)[3]
+         ci.lower = ci({{v}}, conf)[1],
+         mean = ci({{v}}, conf)[2],
+         ci.upper = ci({{v}}, conf)[3]
       )
 }
 
