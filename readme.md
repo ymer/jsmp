@@ -202,29 +202,32 @@ ToothGrowth |>
 
 -   `transpose` : Flips rows and columns
 
-<!-- -->
-
-    #> # A tibble: 11 x 33
-    #>    attribute `Mazda RX4` `Mazda RX4 Wag` `Datsun 710` `Hornet 4 Drive`
-    #>    <chr>           <dbl>           <dbl>        <dbl>            <dbl>
-    #>  1 mpg             21              21           22.8             21.4 
-    #>  2 cyl              6               6            4                6   
-    #>  3 disp           160             160          108              258   
-    #>  4 hp             110             110           93              110   
-    #>  5 drat             3.9             3.9          3.85             3.08
-    #>  6 wt               2.62            2.88         2.32             3.22
-    #>  7 qsec            16.5            17.0         18.6             19.4 
-    #>  8 vs               0               0            1                1   
-    #>  9 am               1               1            1                0   
-    #> 10 gear             4               4            4                3   
-    #> 11 carb             4               4            1                1   
-    #> # ... with 28 more variables: Hornet Sportabout <dbl>, Valiant <dbl>,
-    #> #   Duster 360 <dbl>, Merc 240D <dbl>, Merc 230 <dbl>, Merc 280 <dbl>,
-    #> #   Merc 280C <dbl>, Merc 450SE <dbl>, Merc 450SL <dbl>, Merc 450SLC <dbl>,
-    #> #   Cadillac Fleetwood <dbl>, Lincoln Continental <dbl>,
-    #> #   Chrysler Imperial <dbl>, Fiat 128 <dbl>, Honda Civic <dbl>,
-    #> #   Toyota Corolla <dbl>, Toyota Corona <dbl>, Dodge Challenger <dbl>,
-    #> #   AMC Javelin <dbl>, Camaro Z28 <dbl>, Pontiac Firebird <dbl>, ...
+``` r
+mtcars |> 
+   rownames_to_column() |> 
+   transpose()
+#> # A tibble: 11 x 33
+#>    attribute `Mazda RX4` `Mazda RX4 Wag` `Datsun 710` `Hornet 4 Drive`
+#>    <chr>           <dbl>           <dbl>        <dbl>            <dbl>
+#>  1 mpg             21              21           22.8             21.4 
+#>  2 cyl              6               6            4                6   
+#>  3 disp           160             160          108              258   
+#>  4 hp             110             110           93              110   
+#>  5 drat             3.9             3.9          3.85             3.08
+#>  6 wt               2.62            2.88         2.32             3.22
+#>  7 qsec            16.5            17.0         18.6             19.4 
+#>  8 vs               0               0            1                1   
+#>  9 am               1               1            1                0   
+#> 10 gear             4               4            4                3   
+#> 11 carb             4               4            1                1   
+#> # ... with 28 more variables: Hornet Sportabout <dbl>, Valiant <dbl>,
+#> #   Duster 360 <dbl>, Merc 240D <dbl>, Merc 230 <dbl>, Merc 280 <dbl>,
+#> #   Merc 280C <dbl>, Merc 450SE <dbl>, Merc 450SL <dbl>, Merc 450SLC <dbl>,
+#> #   Cadillac Fleetwood <dbl>, Lincoln Continental <dbl>,
+#> #   Chrysler Imperial <dbl>, Fiat 128 <dbl>, Honda Civic <dbl>,
+#> #   Toyota Corolla <dbl>, Toyota Corona <dbl>, Dodge Challenger <dbl>,
+#> #   AMC Javelin <dbl>, Camaro Z28 <dbl>, Pontiac Firebird <dbl>, ...
+```
 
 <br>
 

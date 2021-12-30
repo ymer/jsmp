@@ -176,7 +176,7 @@ ToothGrowth |>
 
 - `transpose` : Flips rows and columns
 
-```{r, eho = T}
+```{r, echo = T}
 mtcars |> 
    rownames_to_column() |> 
    transpose()
