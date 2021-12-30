@@ -32,6 +32,8 @@ Tidyverse:
 
 ## ggplot functions
 
+-   `gg_hist_percent` : Draws a histogram with y-axis as a percentage
+
 -   `gg_legend_remove` : Removes the legend
 
 -   `gg_legend_notitle` : Removes the legend title
@@ -53,6 +55,9 @@ Tidyverse:
 
 -   `gg_y_percent` : Changes the y-axis to percentage
 
+-   `gg_y_percent_zero` : Changes the y-axis to percentage, and adjusts
+    the y-axis to start at 0.
+
 -   `gg_y_remove` : Removes the y-axis
 
 -   `gg_y_zero` : Adjusts the y-axis to start at exactly 0
@@ -65,17 +70,17 @@ Tidyverse:
     leftover grouping is dropped after summarising
 
 ``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
+mtcars |> 
+   group_by(am, gear) |> 
+   dplyr::summarise(mean_mpg = mean(mpg)) |> 
    group_vars()
 #> [1] "am"
 ```
 
 ``` r
-mtcars %>% 
-   group_by(am, gear) %>% 
-   summarise(mean_mpg = mean(mpg)) %>% 
+mtcars |> 
+   group_by(am, gear) |> 
+   summarise(mean_mpg = mean(mpg)) |> 
    group_vars()
 #> character(0)
 ```
@@ -87,7 +92,7 @@ mtcars %>%
 -   `filter_dupes` : selects duplicated rows
 
 ``` r
-mtcars %>% filter_dupes("wt")
+mtcars |> filter_dupes("wt")
 #> # A tibble: 5 x 12
 #> # Groups:   wt [2]
 #>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb     n
@@ -102,7 +107,7 @@ mtcars %>% filter_dupes("wt")
 -   `fix_names` : Changes the column names to tidy style
 
 ``` r
-iris %>% fix_names() %>% 
+iris |> fix_names() |> 
    head()
 #>   sepal_length sepal_width petal_length petal_width species
 #> 1          5.1         3.5          1.4         0.2  setosa
@@ -157,7 +162,7 @@ percent(0.173234235)
 -   `rows` : Facilitates looping
 
 ``` r
-df <- mtcars %>% head()
+df <- mtcars |> head()
 for (row in rows(df)){
    print(row$mpg)
 }
@@ -173,9 +178,9 @@ for (row in rows(df)){
     along with the mean
 
 ``` r
-ToothGrowth %>% 
-   group_by(supp) %>% 
-   summarise_cis("len") %>% 
+ToothGrowth |> 
+   group_by(supp) |> 
+   summarise_cis("len") |> 
    ggplot(aes(y = supp, x = mean)) +
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```
@@ -185,13 +190,41 @@ ToothGrowth %>%
 -   `tab` : Ordered `count` including percentage
 
 ``` r
-ToothGrowth %>%
-   filter(len > 20) %>% 
+ToothGrowth |>
+   filter(len > 20) |> 
    tab(supp)
 #>   supp  n percent
 #> 1   OJ 18   64.3%
 #> 2   VC 10   35.7%
 ```
+
+<br>
+
+-   `transpose` : Flips rows and columns
+
+<!-- -->
+
+    #> # A tibble: 11 x 33
+    #>    attribute `Mazda RX4` `Mazda RX4 Wag` `Datsun 710` `Hornet 4 Drive`
+    #>    <chr>           <dbl>           <dbl>        <dbl>            <dbl>
+    #>  1 mpg             21              21           22.8             21.4 
+    #>  2 cyl              6               6            4                6   
+    #>  3 disp           160             160          108              258   
+    #>  4 hp             110             110           93              110   
+    #>  5 drat             3.9             3.9          3.85             3.08
+    #>  6 wt               2.62            2.88         2.32             3.22
+    #>  7 qsec            16.5            17.0         18.6             19.4 
+    #>  8 vs               0               0            1                1   
+    #>  9 am               1               1            1                0   
+    #> 10 gear             4               4            4                3   
+    #> 11 carb             4               4            1                1   
+    #> # ... with 28 more variables: Hornet Sportabout <dbl>, Valiant <dbl>,
+    #> #   Duster 360 <dbl>, Merc 240D <dbl>, Merc 230 <dbl>, Merc 280 <dbl>,
+    #> #   Merc 280C <dbl>, Merc 450SE <dbl>, Merc 450SL <dbl>, Merc 450SLC <dbl>,
+    #> #   Cadillac Fleetwood <dbl>, Lincoln Continental <dbl>,
+    #> #   Chrysler Imperial <dbl>, Fiat 128 <dbl>, Honda Civic <dbl>,
+    #> #   Toyota Corolla <dbl>, Toyota Corona <dbl>, Dodge Challenger <dbl>,
+    #> #   AMC Javelin <dbl>, Camaro Z28 <dbl>, Pontiac Firebird <dbl>, ...
 
 <br>
 

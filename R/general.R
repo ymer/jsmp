@@ -7,7 +7,7 @@ percent <- function(num){
 }
 
 tab <- function(df, ...){
-   count(df, ..., sort = T) %>%
+   count(df, ..., sort = T) |>
       mutate(percent = percent(n / sum(n)))
 }
 
@@ -22,7 +22,7 @@ fix_name <- function(s, truncate = 0){
             "#" = "_number_",
             "\\A[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]*(.*)$" = "\\1",
             "[\\h\\s\\p{Punctuation}\\p{Symbol}\\p{Separator}\\p{Other}]+" = ".")
-         ) %>%
+         ) |>
       snakecase::to_snake_case(numerals = "left")
 
    s <- if_else(
@@ -64,7 +64,7 @@ fix_names <- function(df, truncate = 0){
 
 
 d <- function(df){
-   df %>% gt() %>%
+   df |> gt() |>
       tab_options(
          data_row.padding = px(0),
          table.align = "left",
@@ -72,7 +72,7 @@ d <- function(df){
          table.border.top.style = "hidden",
          table.border.bottom.style = "hidden",
          table.font.size = 12
-         ) %>%
+         ) |>
       cols_align(align = "left")
 }
 
@@ -85,9 +85,9 @@ left_join0 <- function(dt1, dt2, ..., fill = 0){
 }
 
 filter_dupes <- function(df, col){
-   df %>% group_by(!!sym(col)) %>%
-      mutate(n = n()) %>%
-      filter(n > 1) %>%
+   df |> group_by(!!sym(col)) |>
+      mutate(n = n()) |>
+      filter(n > 1) |>
       arrange(!!sym(col))
 }
 
@@ -106,8 +106,8 @@ ci <- function(v, conf = 0.95){
 }
 
 summarise_cis <- function(df, v, conf = 0.95){
-   df %>%
-      drop_na(!!sym(v)) %>%
+   df |>
+      drop_na(!!sym(v)) |>
       summarise(
          ci.lower = ci(!!sym(v), conf)[1],
          mean = ci(!!sym(v), conf)[2],
@@ -120,9 +120,9 @@ transpose <- function(df, col1_name = "attribute"){
       !any(is.na(suppressWarnings(as.numeric(na.omit(x))))) & is.character(x)
    }
    first_col <- names(df)[1]
-   df %>% mutate(across(everything(), as.character)) %>%
-      pivot_longer(cols = -first_col, names_to = col1_name) %>%
-      pivot_wider(names_from = first_col, values_from = value) %>%
+   df |> mutate(across(everything(), as.character)) |>
+      pivot_longer(cols = -first_col, names_to = col1_name) |>
+      pivot_wider(names_from = first_col, values_from = value) |>
       mutate_if(is_all_numeric,as.numeric)
 }
 

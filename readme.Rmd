@@ -40,7 +40,7 @@ This package does variety of things I find useful when working with R Tidyverse:
 ## Custom ggplot theme
 
 ```{r, fig.width = 4, fig.height = 3}
-mtcars %>% ggplot(aes(x = mpg, y = disp)) +
+mtcars |> ggplot(aes(x = mpg, y = disp)) +
    geom_point()
 ```
 
@@ -85,16 +85,16 @@ mtcars %>% ggplot(aes(x = mpg, y = disp)) +
 - `summarise` : Overrides the standard summarise function, so that leftover grouping is dropped after summarising
 
 ```{r, echo = T}
-mtcars %>% 
-   group_by(am, gear) %>% 
-   dplyr::summarise(mean_mpg = mean(mpg)) %>% 
+mtcars |> 
+   group_by(am, gear) |> 
+   dplyr::summarise(mean_mpg = mean(mpg)) |> 
    group_vars()
 ```
 
 ```{r, echo = T}
-mtcars %>% 
-   group_by(am, gear) %>% 
-   summarise(mean_mpg = mean(mpg)) %>% 
+mtcars |> 
+   group_by(am, gear) |> 
+   summarise(mean_mpg = mean(mpg)) |> 
    group_vars()
 ```
 
@@ -105,13 +105,13 @@ mtcars %>%
 - `filter_dupes` : selects duplicated rows
 
 ```{r, echo = T}
-mtcars %>% filter_dupes("wt")
+mtcars |> filter_dupes("wt")
 ```
 
 - `fix_names` : Changes the column names to tidy style
 
 ```{r, echo = T}
-iris %>% fix_names() %>% 
+iris |> fix_names() |> 
    head()
 ```
 
@@ -146,7 +146,7 @@ percent(0.173234235)
 - `rows` :  Facilitates looping
 
 ```{r, echo = T}
-df <- mtcars %>% head()
+df <- mtcars |> head()
 for (row in rows(df)){
    print(row$mpg)
 }
@@ -155,9 +155,9 @@ for (row in rows(df)){
 - `summarise_cis` : Finds the upper and lower confidence interval along with the mean
 
 ```{r, echo = T, fig.width = 4, fig.height = 3}
-ToothGrowth %>% 
-   group_by(supp) %>% 
-   summarise_cis("len") %>% 
+ToothGrowth |> 
+   group_by(supp) |> 
+   summarise_cis("len") |> 
    ggplot(aes(y = supp, x = mean)) +
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```
@@ -166,8 +166,8 @@ ToothGrowth %>%
 - `tab` : Ordered `count` including percentage
 
 ```{r, echo = T}
-ToothGrowth %>%
-   filter(len > 20) %>% 
+ToothGrowth |>
+   filter(len > 20) |> 
    tab(supp)
 ```
 
@@ -177,8 +177,8 @@ ToothGrowth %>%
 - `transpose` : Flips rows and columns
 
 ```{r}
-mtcars %>% 
-   rownames_to_column() %>% 
+mtcars |> 
+   rownames_to_column() |> 
    transpose()
 ```
 
