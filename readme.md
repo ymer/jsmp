@@ -103,8 +103,24 @@ ToothGrowth |>
 
 -   `ci_proportions` : Finds the proportions and confidence intervals
 
-![](man/figures/unnamed-chunk-5-1.png)<!-- --> -`do_if` : Use a
-condition in a pipe flow
+``` r
+mtcars |> 
+   mutate(cyl = as.character(cyl)) |> 
+   count(cyl) |> 
+   mutate(total = sum(n)) |> 
+   ci_proportions() |> 
+   ggplot(aes(x = cyl, y = proportion)) +
+   geom_col(position = position_dodge()) +
+   gg_y_percent_zero() +
+   gg_legend_notitle() +
+   labs(y = "", x = "") +
+   geom_errorbar(aes(ymin = ci.lower, ymax = ci.upper),
+                  width=.2, position=position_dodge(.9))
+```
+
+![](man/figures/unnamed-chunk-5-1.png)<!-- -->
+
+-   `do_if` : Use a condition in a pipe flow
 
 ``` r
 only_high_values <- T
@@ -271,8 +287,3 @@ mtcars |>
 -   [patchwork](https://github.com/thomasp85/patchwork)
 -   [stringr](https://stringr.tidyverse.org/)
 -   [tidyverse](https://github.com/tidyverse/tidyverse)
-
-<!-- -->
-
-    #>   mean(disp)
-    #> 1     339.15

@@ -115,7 +115,7 @@ ToothGrowth |>
 
 - `ci_proportions` : Finds the proportions and confidence intervals
 
-```{r}
+```{r, echo = T, fig.width = 4, fig.height = 3}
 mtcars |> 
    mutate(cyl = as.character(cyl)) |> 
    count(cyl) |> 
@@ -129,7 +129,8 @@ mtcars |>
    geom_errorbar(aes(ymin = ci.lower, ymax = ci.upper),
                   width=.2, position=position_dodge(.9))
 ```
--`do_if` : Use a condition in a pipe flow
+
+- `do_if` : Use a condition in a pipe flow
 
 ```{r, echo = T}
 only_high_values <- T
@@ -234,11 +235,4 @@ mtcars |>
 - [patchwork](https://github.com/thomasp85/patchwork)
 - [stringr](https://stringr.tidyverse.org/)
 - [tidyverse](https://github.com/tidyverse/tidyverse)
-
-
-
-```{r}
-mtcars |> filter(disp > 180) |> 
-   summarise(mean(disp))
-```
 
