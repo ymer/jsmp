@@ -85,9 +85,15 @@ mtcars |>
 #> character(0)
 ```
 
+<br>
+
 -   `%notin%` : As `%in%` but exclusionary
 
+<br>
+
 -   `d` : Formats table (using `gt` as base)
+
+<br>
 
 -   `ci_means` : Finds the means and confidence intervals
 
@@ -100,6 +106,8 @@ ToothGrowth |>
 ```
 
 ![](man/figures/unnamed-chunk-4-1.png)<!-- -->
+
+<br>
 
 -   `ci_proportions` : Finds the proportions and confidence intervals
 
@@ -119,6 +127,8 @@ mtcars |>
 ```
 
 ![](man/figures/unnamed-chunk-5-1.png)<!-- -->
+
+<br>
 
 -   `do_if` : Use a condition in a pipe flow
 
@@ -148,6 +158,8 @@ mtcars |> do_if(high_or_low == "high",
 #> 1   122.2938
 ```
 
+<br>
+
 -   `filter_duplicates` : selects duplicated rows
 
 ``` r
@@ -163,6 +175,8 @@ mtcars |> filter_duplicates(wt)
 #> 5  15       8  301    335  3.54  3.57  14.6     0     1     5     8     2
 ```
 
+<br>
+
 -   `fix_names` : Changes the column names to tidy style
 
 ``` r
@@ -176,6 +190,8 @@ iris |> fix_names() |>
 #> 5          5.0         3.6          1.4         0.2  setosa
 #> 6          5.4         3.9          1.7         0.4  setosa
 ```
+
+<br>
 
 -   `left_join0` : Performs a left_join, while setting values in missing
     rows to 0 instead of NA.
@@ -211,12 +227,16 @@ left_join0(df1, df2)
 #> 3     3    10     4
 ```
 
+<br>
+
 -   `percent` : Returns proportion formatted as percentage
 
 ``` r
 percent(0.173234235)
 #> [1] "17.3%"
 ```
+
+<br>
 
 -   `rows` : Facilitates looping
 
@@ -232,6 +252,8 @@ for (row in rows(df)){
 #> [1] 18.7
 #> [1] 18.1
 ```
+
+<br>
 
 -   `tab` : Ordered `count` including percentage
 

@@ -97,10 +97,15 @@ mtcars |>
    summarise(mean_mpg = mean(mpg)) |> 
    group_vars()
 ```
+<br>
 
 - `%notin%` : As `%in%` but exclusionary
 
+<br>
+
 - `d` : Formats table (using `gt` as base)
+
+<br>
 
 - `ci_means` : Finds the means and confidence intervals
 
@@ -112,6 +117,7 @@ ToothGrowth |>
    geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
 ```
 
+<br>
 
 - `ci_proportions` : Finds the proportions and confidence intervals
 
@@ -129,6 +135,8 @@ mtcars |>
    geom_errorbar(aes(ymin = ci.lower, ymax = ci.upper),
                   width=.2, position=position_dodge(.9))
 ```
+
+<br>
 
 - `do_if` : Use a condition in a pipe flow
 
@@ -152,11 +160,15 @@ mtcars |> do_if(high_or_low == "high",
    summarise(mean(disp))
 ```
 
+<br>
+
 - `filter_duplicates` : selects duplicated rows
 
 ```{r, echo = T}
 mtcars |> filter_duplicates(wt)
 ```
+
+<br>
 
 - `fix_names` : Changes the column names to tidy style
 
@@ -164,6 +176,8 @@ mtcars |> filter_duplicates(wt)
 iris |> fix_names() |> 
    head()
 ```
+
+<br>
 
 - `left_join0` : Performs a left_join, while setting values in missing rows to 0 instead of NA.
 
@@ -186,12 +200,15 @@ left_join(df1, df2)
 left_join0(df1, df2)
 ```
 
+<br>
 
 - `percent` : Returns proportion formatted as percentage
 
 ```{r, echo = T}
 percent(0.173234235)
 ```
+
+<br>
 
 - `rows` :  Facilitates looping
 
@@ -202,7 +219,7 @@ for (row in rows(df)){
 }
 ```
 
-
+<br>
 
 - `tab` : Ordered `count` including percentage
 
@@ -211,7 +228,6 @@ ToothGrowth |>
    filter(len > 20) |> 
    tab(supp)
 ```
-
 
 <br>
 
