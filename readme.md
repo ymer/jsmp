@@ -89,10 +89,53 @@ mtcars |>
 
 -   `d` : Formats table (using `gt` as base)
 
--   `filter_dupes` : selects duplicated rows
+-   `ci_means` : Finds the means and confidence intervals
 
 ``` r
-mtcars |> filter_dupes(wt)
+ToothGrowth |> 
+   group_by(supp) |> 
+   ci_means(len) |> 
+   ggplot(aes(y = supp, x = mean)) +
+   geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
+```
+
+![](man/figures/unnamed-chunk-4-1.png)<!-- -->
+
+-   `ci_proportions` : Finds the proportions and confidence intervals
+
+![](man/figures/unnamed-chunk-5-1.png)<!-- --> -`do_if` : Use a
+condition in a pipe flow
+
+``` r
+only_high_values <- T
+mtcars |> do_if(only_high_values, ~ . |> filter(disp > 180)) |> 
+   summarise(mean(disp))
+#>   mean(disp)
+#> 1     339.15
+```
+
+``` r
+only_high_values <- F
+mtcars |> do_if(only_high_values, ~ . |> filter(disp > 180)) |> 
+   summarise(mean(disp))
+#>   mean(disp)
+#> 1   230.7219
+```
+
+``` r
+high_or_low <- "low"
+mtcars |> do_if(high_or_low == "high", 
+                 ~ .x |> filter(disp >= 180), 
+                 ~ .x |> filter(disp < 180)) |> 
+   summarise(mean(disp))
+#>   mean(disp)
+#> 1   122.2938
+```
+
+-   `filter_duplicates` : selects duplicated rows
+
+``` r
+mtcars |> filter_duplicates(wt)
 #> # A tibble: 5 x 12
 #> # Groups:   wt [2]
 #>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb     n
@@ -174,19 +217,6 @@ for (row in rows(df)){
 #> [1] 18.1
 ```
 
--   `summarise_cis` : Finds the upper and lower confidence interval
-    along with the mean
-
-``` r
-ToothGrowth |> 
-   group_by(supp) |> 
-   summarise_cis(len) |> 
-   ggplot(aes(y = supp, x = mean)) +
-   geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
-```
-
-![](man/figures/unnamed-chunk-10-1.png)<!-- -->
-
 -   `tab` : Ordered `count` including percentage
 
 ``` r
@@ -241,3 +271,8 @@ mtcars |>
 -   [patchwork](https://github.com/thomasp85/patchwork)
 -   [stringr](https://stringr.tidyverse.org/)
 -   [tidyverse](https://github.com/tidyverse/tidyverse)
+
+<!-- -->
+
+    #>   mean(disp)
+    #> 1     339.15

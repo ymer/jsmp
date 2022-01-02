@@ -102,10 +102,59 @@ mtcars |>
 
 - `d` : Formats table (using `gt` as base)
 
-- `filter_dupes` : selects duplicated rows
+- `ci_means` : Finds the means and confidence intervals
+
+```{r, echo = T, fig.width = 4, fig.height = 3}
+ToothGrowth |> 
+   group_by(supp) |> 
+   ci_means(len) |> 
+   ggplot(aes(y = supp, x = mean)) +
+   geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
+```
+
+
+- `ci_proportions` : Finds the proportions and confidence intervals
+
+```{r}
+mtcars |> 
+   mutate(cyl = as.character(cyl)) |> 
+   count(cyl) |> 
+   mutate(total = sum(n)) |> 
+   ci_proportions() |> 
+   ggplot(aes(x = cyl, y = proportion)) +
+   geom_col(position = position_dodge()) +
+   gg_y_percent_zero() +
+   gg_legend_notitle() +
+   labs(y = "", x = "") +
+   geom_errorbar(aes(ymin = ci.lower, ymax = ci.upper),
+                  width=.2, position=position_dodge(.9))
+```
+-`do_if` : Use a condition in a pipe flow
 
 ```{r, echo = T}
-mtcars |> filter_dupes(wt)
+only_high_values <- T
+mtcars |> do_if(only_high_values, ~ . |> filter(disp > 180)) |> 
+   summarise(mean(disp))
+```
+
+```{r, echo = T}
+only_high_values <- F
+mtcars |> do_if(only_high_values, ~ . |> filter(disp > 180)) |> 
+   summarise(mean(disp))
+```
+
+```{r, echo = T}
+high_or_low <- "low"
+mtcars |> do_if(high_or_low == "high", 
+                 ~ .x |> filter(disp >= 180), 
+                 ~ .x |> filter(disp < 180)) |> 
+   summarise(mean(disp))
+```
+
+- `filter_duplicates` : selects duplicated rows
+
+```{r, echo = T}
+mtcars |> filter_duplicates(wt)
 ```
 
 - `fix_names` : Changes the column names to tidy style
@@ -152,15 +201,6 @@ for (row in rows(df)){
 }
 ```
 
-- `summarise_cis` : Finds the upper and lower confidence interval along with the mean
-
-```{r, echo = T, fig.width = 4, fig.height = 3}
-ToothGrowth |> 
-   group_by(supp) |> 
-   summarise_cis(len) |> 
-   ggplot(aes(y = supp, x = mean)) +
-   geom_crossbar(aes(xmin = ci.lower, xmax = ci.upper), width = 0.3, size = 0.7, color = c1)
-```
 
 
 - `tab` : Ordered `count` including percentage
@@ -194,3 +234,11 @@ mtcars |>
 - [patchwork](https://github.com/thomasp85/patchwork)
 - [stringr](https://stringr.tidyverse.org/)
 - [tidyverse](https://github.com/tidyverse/tidyverse)
+
+
+
+```{r}
+mtcars |> filter(disp > 180) |> 
+   summarise(mean(disp))
+```
+

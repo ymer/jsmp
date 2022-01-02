@@ -84,7 +84,7 @@ left_join0 <- function(dt1, dt2, ..., fill = 0){
    merged
 }
 
-filter_dupes <- function(df, col){
+filter_duplicates <- function(df, col){
    df |> group_by({{col}}) |>
       mutate(n = n()) |>
       filter(n > 1) |>
@@ -105,7 +105,7 @@ ci <- function(v, conf = 0.95){
    return(c(mean - error, mean, mean + error))
 }
 
-summarise_cis <- function(df, v, conf = 0.95){
+ci_means <- function(df, v, conf = 0.95){
    df |>
       drop_na({{v}}) |>
       summarise(
@@ -113,6 +113,17 @@ summarise_cis <- function(df, v, conf = 0.95){
          mean = ci({{v}}, conf)[2],
          ci.upper = ci({{v}}, conf)[3]
       )
+}
+
+
+ci_proportions <- function(df){
+   df |> rowwise() |>
+      mutate(
+         ci.lower = binom.test(n, total) %>% tidy() %>% pull(conf.low),
+         proportion = binom.test(n, total) %>% tidy() %>% pull(estimate),
+         ci.upper = binom.test(n, total) %>% tidy() %>% pull(conf.high)
+      ) |>
+      ungroup()
 }
 
 transpose <- function(df, col1_name = "attribute"){
@@ -126,3 +137,11 @@ transpose <- function(df, col1_name = "attribute"){
       mutate_if(is_all_numeric,as.numeric)
 }
 
+do_if <- function(.data, condition, .if, .else = identity) {
+   if (condition) {
+      call <- rlang::as_closure(.if)
+   } else {
+      call <- rlang::as_closure(.else)
+   }
+   do.call(call, list(.data))
+}
